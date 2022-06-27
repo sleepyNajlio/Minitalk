@@ -6,7 +6,7 @@
 /*   By: nloutfi <nloutfi@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 16:44:36 by nloutfi           #+#    #+#             */
-/*   Updated: 2022/06/27 23:18:58 by nloutfi          ###   ########.fr       */
+/*   Updated: 2022/06/27 23:42:24 by nloutfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,21 @@ void	bit_sender(char *str, int pid)
 {
 	int	i;
 	int	j;
-	char	c;
-
+	
 	i = 0;
-	while(str[i])
+	while(*(str + i))
 	{
-		c = str [i];
 		j = 0;
 		while(j < 8)
 		{
-			if (c & 1)
+			if (*(str + i) & 1)
 			{
 				if (kill(pid, SIGUSR1) == -1)
 					f_error();
 			}
 			else if (kill(pid, SIGUSR2) == -1)
 				f_error();
-			c = c >> 1;
+			*(str + i) = *(str + i) >> 1;
 			j++;
 			usleep(50);
 		}

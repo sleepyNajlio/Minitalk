@@ -1,21 +1,15 @@
-NAME= talk
+NAME = server client
 
+all : $(NAME)
 
 $(NAME):
 	@make -sC ./Libft
-	@cp ./Libft/libft.a .
-	gcc -Wall -Werror -Wextra -fsanitize=address -g libft.a server.c -o server
-	gcc -Wall -Werror -Wextra -fsanitize=address -g libft.a client.c -o client
-all: $(NAME)
-
-re: fclean all
-
+	@gcc -Wall -Wextra -Werror libft/libft.a server.c -o server
+	@gcc -Wall -Wextra -Werror libft/libft.a client.c -o client
+	@echo "✅🤖✅"
 clean:
-	@rm -rf $(NAME) $(OBJ) a.out server client
+	@rm -f $(NAME) server client
 	@make -sC ./Libft/ fclean
-	@clear
-
+	@echo "🚮🚮🚮"
 fclean: clean
-		@rm -rf libft.a talk.a
-
-.PHONY: all clean re fclean
+re: clean all
